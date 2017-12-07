@@ -9,7 +9,8 @@ import EatCookies from './EatCookies'
 export default class App extends Component {
   state = {
     clicks: 1,
-    consecEat: 1
+    consecEat: 1,
+    Ate: false
   };
   componentDidMount() {
     const clicks = parseInt(localStorage.getItem('clicks'), 10);
@@ -27,7 +28,8 @@ export default class App extends Component {
     this.setState((prevState) => {
       return {
         consecEat: 1,
-        clicks: prevState.clicks + 1
+        clicks: prevState.clicks + 1,
+        Ate: false
       }
     });
   };
@@ -40,7 +42,8 @@ export default class App extends Component {
       }
       return {
         consecEat: prevState.consecEat *= 2,
-        clicks: prevState.clicks - prevState.consecEat
+        clicks: prevState.clicks - prevState.consecEat,
+        Ate: true
       }
     });
   }
@@ -56,8 +59,8 @@ export default class App extends Component {
           <EatCookies
             eatCookies={this.eatCookies}
           />
-          <h1>Count: {(this.state.clicks !== 0) ? this.state.clicks : "You Ate All The Cookies!"}</h1>
-          
+         <h1>Count: {(this.state.clicks !== 0) ? this.state.clicks : "You Ate All The Cookies!"}</h1>
+          <h2>{(this.state.Ate === true && this.state.clicks !== 0) && <p>You Ate {this.state.consecEat} Cookies!</p>} </h2>
         </header>
         <body>
           {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
