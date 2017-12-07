@@ -1,0 +1,69 @@
+import React, { Component } from 'react';
+import './../styles/App.css';
+import CookieButton from './CookieButton';
+import Header from './Header';
+import mysterious_figure from './../images/mysterious_figure.jpg';
+import merchant from './/../images/merchant.jpg'
+import EatCookies from './EatCookies'
+
+export default class App extends Component {
+  state = {
+    clicks: 1,
+    consecEat: 1
+  };
+  componentDidMount() {
+    const clicks = parseInt(localStorage.getItem('clicks'), 10);
+    if (!isNaN(clicks)) {
+      this.setState(() => ({ clicks }));
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.clicks !== this.state.clicks) {
+      const clicks = this.state.clicks;
+      localStorage.setItem('clicks', clicks)
+    }
+  }
+  makeCookies = (prevstate) => {
+    this.setState((prevState) => {
+      return {
+        consecEat: 1,
+        clicks: prevState.clicks + 1
+      }
+    });
+  };
+  eatCookies = (prevState) => {
+    this.setState((prevState) => {
+      if(prevState.clicks - prevState.consecEat*2 < 0){
+        return {
+          clicks: 0
+        }
+      }
+      return {
+        consecEat: prevState.consecEat *= 2,
+        clicks: prevState.clicks - prevState.consecEat
+      }
+    });
+  }
+  render() {
+    const subTitle = 'Welcome to Cookie Clicker';
+    return (
+      <div className="App">
+        <header className="App-header">
+        <Header subTitle={subTitle} />
+          <CookieButton
+            makeCookies={this.makeCookies}
+          />
+          <EatCookies
+            eatCookies={this.eatCookies}
+          />
+          <h1>Count: {(this.state.clicks !== 0) ? this.state.clicks : "You Ate All The Cookies!"}</h1>
+          
+        </header>
+        <body>
+          {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
+        </body>
+      </div>
+    );
+  }
+}
+
