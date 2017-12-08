@@ -8,7 +8,6 @@ import EatCookies from './EatCookies'
 import UpgradeClick from './upgradeClick'
 import Memaw from './Memaw'
 import FireMemaw from './FireMemaw'
-import 'bootstrap';
 // import { Button } from 'react-bootstrap';
 
 
