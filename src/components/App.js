@@ -26,11 +26,12 @@ export default class App extends Component {
   }, 1000)
   state = {
     clicks: 1,
+    upgradeClickPrice: 10,
     power: 1,
     consecEat: 1,
     Ate: false,
     meMaws: 0,
-    upgradeClickPrice: 10,
+    meMawPrice: 10,
     farms: 0
   };
   componentDidMount() {
@@ -96,16 +97,24 @@ export default class App extends Component {
     });
   }
   Memaw = (prevState) => {
+    if (this.state.clicks - this.state.meMawPrice >= 0) {
     this.setState((prevState) => {
-      return { meMaws: prevState.meMaws + 1 }
+      return { 
+        meMaws: prevState.meMaws + 1 ,
+        clicks: prevState.clicks - prevState.meMawPrice,
+        meMawPrice: prevState.meMawPrice + 10
+      
+      }
     })
+  }
 
   }
   fireMemaw = () => {
-    if (this.state.meMaws > 0) {
+    if (this.state.meMaws > 0 && this.state.meMawPrice >= 10) {
       this.setState((prevState) => {
         return {
-          meMaws: prevState.meMaws - 1
+          meMaws: prevState.meMaws - 1,
+          meMawPrice: prevState.meMawPrice - 10
         }
       })
     }
