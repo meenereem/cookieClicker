@@ -61,6 +61,17 @@ export default class App extends Component {
       localStorage.setItem('power', power)
     }
   }
+  upgradeClick = (prevState) => {
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0) {
+      this.setState((prevState) => {
+        return {
+          power: prevState.power + 1,
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice + 10
+        }
+      })
+    }
+  }
   makeCookies = (prevstate) => {
     this.setState((prevState) => {
       return {
@@ -112,17 +123,6 @@ export default class App extends Component {
         farms: prevState.farms - 1
       }
     })
-  }
-  upgradeClick = (prevState) => {
-    if (this.state.clicks - this.state.upgradeClickPrice >= 0) {
-      this.setState((prevState) => {
-        return {
-          power: prevState.power + 1,
-          clicks: prevState.clicks - prevState.upgradeClickPrice,
-          upgradeClickPrice: prevState.upgradeClickPrice + 10
-        }
-      })
-    }
   }
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
