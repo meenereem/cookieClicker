@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './../styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import CookieButton from './CookieButton';
 import Header from './Header';
 import mysterious_figure from './../images/mysterious_figure.jpg';
@@ -8,7 +9,6 @@ import EatCookies from './EatCookies'
 import UpgradeClick from './upgradeClick'
 import Memaw from './Memaw'
 import FireMemaw from './FireMemaw';
-import 'bootstrap/dist/css/bootstrap.min.css'
 import Farm from './Farm'
 import BurnFarm from './BurnFarm'
 import Factory from './Factory'
