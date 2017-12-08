@@ -13,7 +13,7 @@ export default class App extends Component {
     clicks: 1,
     power: 1,
     consecEat: 1,
-    Ate: false
+    Ate: false,
   };
   componentDidMount() {
     const clicks = parseInt(localStorage.getItem('clicks'), 10);
@@ -57,11 +57,6 @@ export default class App extends Component {
       }
     })
   }
-  hireMemaw = () => {
-    return {
-
-    }
-  }
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
     return (
@@ -79,7 +74,8 @@ export default class App extends Component {
         </header>
         <body>
           {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
-          <MeMaw />
+          <MeMaw 
+          />
           <UpgradeClick 
           upgradeClick={this.upgradeClick}
           />
