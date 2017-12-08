@@ -9,45 +9,56 @@ import UpgradeClick from './upgradeClick'
 import Memaw from './Memaw'
 import FireMemaw from './FireMemaw';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Farm from './Farm'
+import BurnFarm from './BurnFarm'
 // import { Button } from 'react-bootstrap';
 
 
 export default class App extends Component {
-      timer = setInterval(()=>{
-      this.setState((prevState) => {
-        return {
-          clicks: prevState.clicks + prevState.Memaws,
-          Ate: false
-        }
-      });
+  timer = setInterval(() => {
+    this.setState((prevState) => {
+      return {
+        clicks: prevState.clicks + prevState.meMaws + prevState.farms,
+        Ate: false
+      }
+    });
 
-    }, 1000)
+  }, 1000)
   state = {
     clicks: 1,
     power: 1,
     consecEat: 1,
     Ate: false,
-    Memaws: 0
+    meMaws: 0,
+    upgradeClickPrice: 10,
+    farms: 0
   };
   componentDidMount() {
     const clicks = parseInt(localStorage.getItem('clicks'), 10);
-    const Memaws = parseInt(localStorage.getItem('Memaws'), 10);
-    if (!isNaN(clicks) && !isNaN(Memaws)) {
-      this.setState(() => ({ clicks, Memaws }));
+    const meMaws = parseInt(localStorage.getItem('meMaws'), 10);
+    const power = parseInt(localStorage.getItem('power'), 10);
+    const farms = parseInt(localStorage.getItem('farms'), 10);
+    if (!isNaN(clicks) && !isNaN(meMaws) && !isNaN(power) && !isNaN(farms)) {
+      this.setState(() => ({ clicks, meMaws, power, farms }));
     }
 
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.Memaws !== this.state.Memaws) {
-      const Memaws = this.state.Memaws;
-      localStorage.setItem('Memaws', Memaws)
+    if (prevState.meMaws !== this.state.meMaws) {
+      const meMaws = this.state.meMaws;
+      localStorage.setItem('meMaws', meMaws)
+    }
+    if (prevState.farms !== this.state.farms) {
+      const farms = this.state.farms;
+      localStorage.setItem('farms', farms)
     }
     if (prevState.clicks !== this.state.clicks) {
       const clicks = this.state.clicks;
-
-      console.log(this.state);
-
       localStorage.setItem('clicks', clicks)
+    }
+    if (prevState.power !== this.state.power) {
+      const power = this.state.power;
+      localStorage.setItem('power', power)
     }
   }
   makeCookies = (prevstate) => {
@@ -75,25 +86,43 @@ export default class App extends Component {
   }
   Memaw = (prevState) => {
     this.setState((prevState) => {
-      return {Memaws:prevState.Memaws + 1}
+      return { meMaws: prevState.meMaws + 1 }
     })
 
   }
   fireMemaw = () => {
-    if (this.state.Memaws > 0){
+    if (this.state.meMaws > 0) {
+      this.setState((prevState) => {
+        return {
+          meMaws: prevState.meMaws - 1
+        }
+      })
+    }
+  }
+  buildFarm = () => {
     this.setState((prevState) => {
       return {
-        Memaws:prevState.Memaws - 1
+        farms: prevState.farms + 1
       }
     })
   }
+  burnFarm = () => {
+    this.setState((prevState) => {
+      return {
+        farms: prevState.farms - 1
+      }
+    })
   }
   upgradeClick = (prevState) => {
-    this.setState((prevState) =>{
-      return {
-        power: prevState.power + 1
-      }
-    })
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0) {
+      this.setState((prevState) => {
+        return {
+          power: prevState.power + 1,
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice + 10
+        }
+      })
+    }
   }
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
@@ -116,25 +145,37 @@ export default class App extends Component {
               {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
             </div>
             <div className="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-              <br/>
+              <br />
               <ul>
                 <li>
-                    <Memaw 
-                  Memaw = {this.Memaw}
+                  <UpgradeClick
+                    upgradeClick={this.upgradeClick}
                   />
                 </li>
-                <br/>
+                <br />
                 <li>
-                  <FireMemaw 
-                  fireMemaw = {this.fireMemaw}
+                  <Memaw
+                    Memaw={this.Memaw}
                   />
                 </li>
-                <br/>
+                <br />
                 <li>
-                  <UpgradeClick 
-                  upgradeClick={this.upgradeClick}
+                  <FireMemaw
+                    fireMemaw={this.fireMemaw}
                   />
                 </li>
+                <br />
+                <li>
+                <Farm
+                  buildFarm={this.buildFarm}
+                />
+              </li>
+              <br />
+              <li>
+              <BurnFarm
+                burnFarm={this.burnFarm}
+              />
+            </li>
               </ul>
             </div>
           </div>
