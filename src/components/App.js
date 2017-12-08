@@ -108,14 +108,14 @@ export default class App extends Component {
   }
   Memaw = (prevState) => {
     if (this.state.clicks - this.state.meMawPrice >= 0) {
-    this.setState((prevState) => {
-      return { 
-        meMaws: prevState.meMaws + 1 ,
-        clicks: prevState.clicks - prevState.meMawPrice,
-        meMawPrice: prevState.meMawPrice + 10
-      }
-    })
-  }
+      this.setState((prevState) => {
+        return {
+          meMaws: prevState.meMaws + 1,
+          clicks: prevState.clicks - prevState.meMawPrice,
+          meMawPrice: prevState.meMawPrice + 10
+        }
+      })
+    }
   }
   fireMemaw = () => {
     if (this.state.meMaws > 0 && this.state.meMawPrice >= 10) {
@@ -129,46 +129,46 @@ export default class App extends Component {
   }
   buildFarm = () => {
     if (this.state.clicks - this.state.farmPrice >= 0) {
-    this.setState((prevState) => {
-      return {
-        farms: prevState.farms + 1,
-        clicks: prevState.clicks - prevState.farmPrice,
-        farmPrice: prevState.farmPrice + 10
-      }
-    })
-  }
+      this.setState((prevState) => {
+        return {
+          farms: prevState.farms + 1,
+          clicks: prevState.clicks - prevState.farmPrice,
+          farmPrice: prevState.farmPrice + 10
+        }
+      })
+    }
   }
   burnFarm = () => {
     if (this.state.farms > 0 && this.state.farmPrice >= 10) {
-    this.setState((prevState) => {
-      return {
-        farms: prevState.farms - 1,
-        farmPrice: prevState.farmPrice - 10
-      }
-    })
+      this.setState((prevState) => {
+        return {
+          farms: prevState.farms - 1,
+          farmPrice: prevState.farmPrice - 10
+        }
+      })
+    }
   }
-}
   buildFactory = () => {
     if (this.state.clicks - this.state.factoryPrice >= 0) {
-    this.setState((prevState) => {
-      return {
-        factories: prevState.factories + 1,
-        clicks: prevState.clicks - prevState.factoryPrice,
-        factoryPrice: prevState.factoryPrice + 10
-      }
-    })
-  }
-}
-burnFactory = () => {
-  if (this.state.factories > 0 && this.state.factoryPrice >= 10) {
-  this.setState((prevState) => {
-    return {
-      factories: prevState.factories - 1,
-      factoryPrice: prevState.factoryPrice - 10
+      this.setState((prevState) => {
+        return {
+          factories: prevState.factories + 1,
+          clicks: prevState.clicks - prevState.factoryPrice,
+          factoryPrice: prevState.factoryPrice + 10
+        }
+      })
     }
-  })
-}
-}
+  }
+  burnFactory = () => {
+    if (this.state.factories > 0 && this.state.factoryPrice >= 10) {
+      this.setState((prevState) => {
+        return {
+          factories: prevState.factories - 1,
+          factoryPrice: prevState.factoryPrice - 10
+        }
+      })
+    }
+  }
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
     return (
@@ -196,12 +196,14 @@ burnFactory = () => {
                   <UpgradeClick
                     upgradeClick={this.upgradeClick}
                   />
+                  <p>Cost: {this.state.upgradeClickPrice}</p>
                 </li>
                 <br />
                 <li>
                   <Memaw
                     Memaw={this.Memaw}
                   />
+                  <p>Cost: {this.state.meMawPrice}</p>
                 </li>
                 <br />
                 <li>
@@ -211,29 +213,31 @@ burnFactory = () => {
                 </li>
                 <br />
                 <li>
-                <Farm
-                  buildFarm={this.buildFarm}
-                />
-              </li>
-              <br />
-              <li>
-              <BurnFarm
-                burnFarm={this.burnFarm}
-              />
-            </li>
-            <br />
-            <li>
-            <Factory
-              buildFactory={this.buildFactory}
-            />
-          </li>
-          <br />
-          <li>
-          <BurnFactory
-            burnFactory={this.burnFactory}
-          />
-        </li>
-        <br />
+                  <Farm
+                    buildFarm={this.buildFarm}
+                  />
+                  <p>Cost: {this.state.farmPrice}</p>
+                </li>
+                <br />
+                <li>
+                  <BurnFarm
+                    burnFarm={this.burnFarm}
+                  />
+                </li>
+                <br />
+                <li >
+                  <Factory
+                    buildFactory={this.buildFactory}
+                  />
+                  <p>Cost: {this.state.factoryPrice}</p>
+                </li>
+                <br />
+                <li>
+                  <BurnFactory
+                    burnFactory={this.burnFactory}
+                  />
+                </li>
+                <br />
               </ul>
             </div>
           </div>
