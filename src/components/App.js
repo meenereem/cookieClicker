@@ -6,24 +6,47 @@ import mysterious_figure from './../images/mysterious_figure.jpg';
 import merchant from './/../images/merchant.jpg'
 import EatCookies from './EatCookies'
 import UpgradeClick from './upgradeClick'
-import MeMaw from './Memaw'
+import Memaw from './Memaw'
+import FireMemaw from './FireMemaw'
+import 'bootstrap';
+// import { Button } from 'react-bootstrap';
+
 
 export default class App extends Component {
+      timer = setInterval(()=>{
+      this.setState((prevState) => {
+        return {
+          clicks: prevState.clicks + prevState.Memaws,
+          Ate: false
+        }
+      });
+
+    }, 1000)
   state = {
     clicks: 1,
     power: 1,
     consecEat: 1,
     Ate: false,
+    Memaws: 0
   };
   componentDidMount() {
     const clicks = parseInt(localStorage.getItem('clicks'), 10);
-    if (!isNaN(clicks)) {
-      this.setState(() => ({ clicks }));
+    const Memaws = parseInt(localStorage.getItem('Memaws'), 10);
+    if (!isNaN(clicks) && !isNaN(Memaws)) {
+      this.setState(() => ({ clicks, Memaws }));
     }
+
   }
   componentDidUpdate(prevProps, prevState) {
+    if (prevState.Memaws !== this.state.Memaws) {
+      const Memaws = this.state.Memaws;
+      localStorage.setItem('Memaws', Memaws)
+    }
     if (prevState.clicks !== this.state.clicks) {
       const clicks = this.state.clicks;
+
+      console.log(this.state);
+
       localStorage.setItem('clicks', clicks)
     }
   }
@@ -50,6 +73,21 @@ export default class App extends Component {
       }
     });
   }
+  Memaw = (prevState) => {
+    this.setState((prevState) => {
+      return {Memaws:prevState.Memaws + 1}
+    })
+
+  }
+  fireMemaw = () => {
+    if (this.state.Memaws > 0){
+    this.setState((prevState) => {
+      return {
+        Memaws:prevState.Memaws - 1
+      }
+    })
+  }
+  }
   upgradeClick = (prevState) => {
     this.setState((prevState) =>{
       return {
@@ -74,7 +112,11 @@ export default class App extends Component {
         </header>
         <body>
           {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
-          <MeMaw 
+          <Memaw 
+          Memaw = {this.Memaw}
+          />
+          <FireMemaw 
+          fireMemaw = {this.fireMemaw}
           />
           <UpgradeClick 
           upgradeClick={this.upgradeClick}

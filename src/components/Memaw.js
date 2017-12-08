@@ -1,10 +1,10 @@
 import React from 'react'
 
-const MeMaw = (props) => (
+const Memaw = (props) => (
     <div>
-    <button onClick={props.startTimer}>Memaw</button>
+    <button className="btn" onClick={props.Memaw}>Hire Memaw</button>
     </div>
 
 )
 
-export default MeMaw;
+export default Memaw;
