@@ -2,7 +2,7 @@ import React from 'react'
 
 const FireMemaw = (props) => (
     <div>
-    <button onClick={props.fireMemaw}>Fire Memaw</button>
+    <a className="btn btn-primary"  href="#" onClick={props.fireMemaw}>Fire Memaw</a>
     </div>
 
 )

@@ -5,7 +5,7 @@ import './../styles/CookieButton.css'
 const CookieButton = (props) => (
     <div className = "CookieButton">
     <img src={cookie} className="App-logo" alt="logo" />
-    <button className="btn btn-primary" onClick={props.makeCookies}>make cookies!</button>
+    <a className="btn btn-primary"  href="#" onClick={props.makeCookies}>make cookies!</a>
     </div>
 
 );

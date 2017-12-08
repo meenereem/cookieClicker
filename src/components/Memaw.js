@@ -2,7 +2,7 @@ import React from 'react'
 
 const Memaw = (props) => (
     <div>
-    <button className="btn" onClick={props.Memaw}>Hire Memaw</button>
+    <a className="btn btn-primary"  href="#" onClick={props.Memaw}>Hire Memaw</a>
     </div>
 
 )
