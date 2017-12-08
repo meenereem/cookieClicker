@@ -2,7 +2,7 @@ import React from 'react'
 
 const upgradeClick = (props) => (
     <div>
-    <button className="btn" onClick={props.upgradeClick}>upgradeClick!</button>
+    <a className="btn btn-primary"  href="#" onClick={props.upgradeClick}>upgradeClick!</a>
     </div>
 
 )

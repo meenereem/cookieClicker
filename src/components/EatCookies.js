@@ -2,7 +2,7 @@ import React from 'react'
 
 const EatCookies = (props) => (
     <div>
-    <button className="btn" onClick={props.eatCookies}>eat Cookies!</button>
+    <a className="btn btn-primary"  href="#" onClick={props.eatCookies}>eat Cookies!</a>
     </div>
 );
 

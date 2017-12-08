@@ -7,7 +7,8 @@ import merchant from './/../images/merchant.jpg'
 import EatCookies from './EatCookies'
 import UpgradeClick from './upgradeClick'
 import Memaw from './Memaw'
-import FireMemaw from './FireMemaw'
+import FireMemaw from './FireMemaw';
+import 'bootstrap/dist/css/bootstrap.min.css'
 // import { Button } from 'react-bootstrap';
 
 
@@ -110,16 +111,33 @@ export default class App extends Component {
           <h2>{(this.state.Ate === true && this.state.clicks !== 0) && <p>You Ate {this.state.consecEat} Cookies!</p>} </h2>
         </header>
         <body>
-          {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
-          <Memaw 
-          Memaw = {this.Memaw}
-          />
-          <FireMemaw 
-          fireMemaw = {this.fireMemaw}
-          />
-          <UpgradeClick 
-          upgradeClick={this.upgradeClick}
-          />
+          <div className="row">
+            <div className="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+              {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
+            </div>
+            <div className="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+              <br/>
+              <ul>
+                <li>
+                    <Memaw 
+                  Memaw = {this.Memaw}
+                  />
+                </li>
+                <br/>
+                <li>
+                  <FireMemaw 
+                  fireMemaw = {this.fireMemaw}
+                  />
+                </li>
+                <br/>
+                <li>
+                  <UpgradeClick 
+                  upgradeClick={this.upgradeClick}
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
         </body>
       </div>
     );
