@@ -32,7 +32,8 @@ export default class App extends Component {
     Ate: false,
     meMaws: 0,
     meMawPrice: 10,
-    farms: 0
+    farms: 0,
+    farmPrice: 10
   };
   componentDidMount() {
     const clicks = parseInt(localStorage.getItem('clicks'), 10);
@@ -120,18 +121,25 @@ export default class App extends Component {
     }
   }
   buildFarm = () => {
+    if (this.state.clicks - this.state.farmPrice >= 0) {
     this.setState((prevState) => {
       return {
-        farms: prevState.farms + 1
+        farms: prevState.farms + 1,
+        clicks: prevState.clicks - prevState.farmPrice,
+        farmPrice: prevState.farmPrice + 10
       }
     })
   }
+  }
   burnFarm = () => {
+    if (this.state.farms > 0 && this.state.farmPrice >= 10) {
     this.setState((prevState) => {
       return {
-        farms: prevState.farms - 1
+        farms: prevState.farms - 1,
+        farmPrice: prevState.farmPrice - 10
       }
     })
+  }
   }
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
