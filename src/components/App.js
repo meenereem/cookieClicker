@@ -11,6 +11,8 @@ import FireMemaw from './FireMemaw';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Farm from './Farm'
 import BurnFarm from './BurnFarm'
+import Factory from './Factory'
+import BurnFactory from './BurnFactory'
 // import { Button } from 'react-bootstrap';
 
 
@@ -18,7 +20,7 @@ export default class App extends Component {
   timer = setInterval(() => {
     this.setState((prevState) => {
       return {
-        clicks: prevState.clicks + prevState.meMaws + prevState.farms,
+        clicks: prevState.clicks + prevState.meMaws + prevState.farms + prevState.factories,
         Ate: false
       }
     });
@@ -33,19 +35,26 @@ export default class App extends Component {
     meMaws: 0,
     meMawPrice: 10,
     farms: 0,
-    farmPrice: 10
+    farmPrice: 10,
+    factories: 0,
+    factoryPrice: 10
   };
   componentDidMount() {
     const clicks = parseInt(localStorage.getItem('clicks'), 10);
     const meMaws = parseInt(localStorage.getItem('meMaws'), 10);
     const power = parseInt(localStorage.getItem('power'), 10);
     const farms = parseInt(localStorage.getItem('farms'), 10);
-    if (!isNaN(clicks) && !isNaN(meMaws) && !isNaN(power) && !isNaN(farms)) {
-      this.setState(() => ({ clicks, meMaws, power, farms }));
+    const factories = parseInt(localStorage.getItem('factories'), 10);
+    if (!isNaN(clicks) && !isNaN(meMaws) && !isNaN(power) && !isNaN(farms) && !isNaN(factories)) {
+      this.setState(() => ({ clicks, meMaws, power, farms, factories }));
     }
 
   }
   componentDidUpdate(prevProps, prevState) {
+    if (prevState.factories !== this.state.factories) {
+      const factories = this.state.factories;
+      localStorage.setItem('factories', factories)
+    }
     if (prevState.meMaws !== this.state.meMaws) {
       const meMaws = this.state.meMaws;
       localStorage.setItem('meMaws', meMaws)
@@ -104,11 +113,9 @@ export default class App extends Component {
         meMaws: prevState.meMaws + 1 ,
         clicks: prevState.clicks - prevState.meMawPrice,
         meMawPrice: prevState.meMawPrice + 10
-      
       }
     })
   }
-
   }
   fireMemaw = () => {
     if (this.state.meMaws > 0 && this.state.meMawPrice >= 10) {
@@ -140,7 +147,28 @@ export default class App extends Component {
       }
     })
   }
+}
+  buildFactory = () => {
+    if (this.state.clicks - this.state.factoryPrice >= 0) {
+    this.setState((prevState) => {
+      return {
+        factories: prevState.factories + 1,
+        clicks: prevState.clicks - prevState.factoryPrice,
+        factoryPrice: prevState.factoryPrice + 10
+      }
+    })
   }
+}
+burnFactory = () => {
+  if (this.state.factories > 0 && this.state.factoryPrice >= 10) {
+  this.setState((prevState) => {
+    return {
+      factories: prevState.factories - 1,
+      factoryPrice: prevState.factoryPrice - 10
+    }
+  })
+}
+}
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
     return (
@@ -193,6 +221,19 @@ export default class App extends Component {
                 burnFarm={this.burnFarm}
               />
             </li>
+            <br />
+            <li>
+            <Factory
+              buildFactory={this.buildFactory}
+            />
+          </li>
+          <br />
+          <li>
+          <BurnFactory
+            burnFactory={this.burnFactory}
+          />
+        </li>
+        <br />
               </ul>
             </div>
           </div>
