@@ -78,7 +78,8 @@ export default class App extends Component {
         return {
           power: prevState.power + 1,
           clicks: prevState.clicks - prevState.upgradeClickPrice,
-          upgradeClickPrice: prevState.upgradeClickPrice + 10
+          upgradeClickPrice: prevState.upgradeClickPrice + 10,
+          consecEat: prevState.consecEat = 1
         }
       })
     }
@@ -88,7 +89,8 @@ export default class App extends Component {
       return {
         consecEat: 1,
         clicks: prevState.clicks + prevState.power,
-        Ate: false
+        Ate: false,
+        consecEat: prevState.consecEat = 1
       }
     });
   };
@@ -96,7 +98,7 @@ export default class App extends Component {
     this.setState((prevState) => {
       if (prevState.clicks - prevState.consecEat * 2 < 0) {
         return {
-          clicks: 0
+          clicks: 0,
         }
       }
       return {
@@ -112,7 +114,8 @@ export default class App extends Component {
         return {
           meMaws: prevState.meMaws + 1,
           clicks: prevState.clicks - prevState.meMawPrice,
-          meMawPrice: prevState.meMawPrice + 10
+          meMawPrice: prevState.meMawPrice + 10,
+          consecEat: prevState.consecEat = 1
         }
       })
     }
@@ -122,7 +125,8 @@ export default class App extends Component {
       this.setState((prevState) => {
         return {
           meMaws: prevState.meMaws - 1,
-          meMawPrice: prevState.meMawPrice - 10
+          meMawPrice: prevState.meMawPrice - 10,
+          consecEat: prevState.consecEat = 1
         }
       })
     }
@@ -133,7 +137,8 @@ export default class App extends Component {
         return {
           farms: prevState.farms + 1,
           clicks: prevState.clicks - prevState.farmPrice,
-          farmPrice: prevState.farmPrice + 10
+          farmPrice: prevState.farmPrice + 10,
+          consecEat: prevState.consecEat = 1
         }
       })
     }
@@ -143,7 +148,8 @@ export default class App extends Component {
       this.setState((prevState) => {
         return {
           farms: prevState.farms - 1,
-          farmPrice: prevState.farmPrice - 10
+          farmPrice: prevState.farmPrice - 10,
+          consecEat: prevState.consecEat = 1
         }
       })
     }
@@ -154,7 +160,8 @@ export default class App extends Component {
         return {
           factories: prevState.factories + 1,
           clicks: prevState.clicks - prevState.factoryPrice,
-          factoryPrice: prevState.factoryPrice + 10
+          factoryPrice: prevState.factoryPrice + 10,
+          consecEat: prevState.consecEat = 1
         }
       })
     }
@@ -164,7 +171,8 @@ export default class App extends Component {
       this.setState((prevState) => {
         return {
           factories: prevState.factories - 1,
-          factoryPrice: prevState.factoryPrice - 10
+          factoryPrice: prevState.factoryPrice - 10,
+          consecEat: prevState.consecEat = 1
         }
       })
     }
