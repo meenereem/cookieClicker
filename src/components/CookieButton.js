@@ -1,6 +1,5 @@
 import React from 'react'
 import cookie from './../images/cookie.png'
-import './../styles/CookieButton.css'
 
 const CookieButton = (props) => (
     <div className = "CookieButton">
