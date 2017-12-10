@@ -1,3 +1,17 @@
+To update on Server (only use force here not for whole app)
+Visual Studio
+  yarn run build
+  git add .
+  git commit -m "m"
+  git push --force
+Terminal
+  ssh root@meenereem.com
+  enter password
+  cd var/www/html/CookieClicker
+  git pull --all
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
