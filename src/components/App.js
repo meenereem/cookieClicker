@@ -45,7 +45,7 @@ export default class App extends Component {
     const farms = parseInt(localStorage.getItem('farms'), 10) || 0;
     const factories = parseInt(localStorage.getItem('factories'), 10) || 0;
     this.setState(() => {
-      console.log({ clicks, meMaws, power, farms, factories }); return { clicks, meMaws, power, farms, factories };
+      return { clicks, meMaws, power, farms, factories };
     });
 
   }
