@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './../styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import CookieButton from './CookieButton';
 import Header from './Header';
 import mysterious_figure from './../images/mysterious_figure.jpg';
@@ -8,46 +9,78 @@ import EatCookies from './EatCookies'
 import UpgradeClick from './upgradeClick'
 import Memaw from './Memaw'
 import FireMemaw from './FireMemaw';
-import 'bootstrap/dist/css/bootstrap.min.css'
-// import { Button } from 'react-bootstrap';
+import Farm from './Farm'
+import BurnFarm from './BurnFarm'
+import Factory from './Factory'
+import BurnFactory from './BurnFactory'
 
 
 export default class App extends Component {
-      timer = setInterval(()=>{
-      this.setState((prevState) => {
-        return {
-          clicks: prevState.clicks + prevState.Memaws,
-          Ate: false
-        }
-      });
+  timer = setInterval(() => {
+    this.setState((prevState) => {
+      return {
+        clicks: prevState.clicks + prevState.meMaws + prevState.farms + prevState.factories,
+        Ate: false
+      }
+    });
 
-    }, 1000)
+  }, 1000)
   state = {
     clicks: 1,
+    upgradeClickPrice: 10,
     power: 1,
     consecEat: 1,
     Ate: false,
-    Memaws: 0
+    meMaws: 0,
+    meMawPrice: 10,
+    farms: 0,
+    farmPrice: 10,
+    factories: 0,
+    factoryPrice: 10
   };
   componentDidMount() {
     const clicks = parseInt(localStorage.getItem('clicks'), 10);
-    const Memaws = parseInt(localStorage.getItem('Memaws'), 10);
-    if (!isNaN(clicks) && !isNaN(Memaws)) {
-      this.setState(() => ({ clicks, Memaws }));
+    const meMaws = parseInt(localStorage.getItem('meMaws'), 10);
+    const power = parseInt(localStorage.getItem('power'), 10);
+    const farms = parseInt(localStorage.getItem('farms'), 10);
+    const factories = parseInt(localStorage.getItem('factories'), 10);
+    if (!isNaN(clicks) && !isNaN(meMaws) && !isNaN(power) && !isNaN(farms) && !isNaN(factories)) {
+      this.setState(() => ({ clicks, meMaws, power, farms, factories }));
     }
 
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.Memaws !== this.state.Memaws) {
-      const Memaws = this.state.Memaws;
-      localStorage.setItem('Memaws', Memaws)
+    if (prevState.factories !== this.state.factories) {
+      const factories = this.state.factories;
+      localStorage.setItem('factories', factories)
+    }
+    if (prevState.meMaws !== this.state.meMaws) {
+      const meMaws = this.state.meMaws;
+      localStorage.setItem('meMaws', meMaws)
+    }
+    if (prevState.farms !== this.state.farms) {
+      const farms = this.state.farms;
+      localStorage.setItem('farms', farms)
     }
     if (prevState.clicks !== this.state.clicks) {
       const clicks = this.state.clicks;
-
-      console.log(this.state);
-
       localStorage.setItem('clicks', clicks)
+    }
+    if (prevState.power !== this.state.power) {
+      const power = this.state.power;
+      localStorage.setItem('power', power)
+    }
+  }
+  upgradeClick = (prevState) => {
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0) {
+      this.setState((prevState) => {
+        return {
+          power: prevState.power + 1,
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice + 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
     }
   }
   makeCookies = (prevstate) => {
@@ -55,7 +88,8 @@ export default class App extends Component {
       return {
         consecEat: 1,
         clicks: prevState.clicks + prevState.power,
-        Ate: false
+        Ate: false,
+        consecEat: prevState.consecEat = 1
       }
     });
   };
@@ -63,7 +97,7 @@ export default class App extends Component {
     this.setState((prevState) => {
       if (prevState.clicks - prevState.consecEat * 2 < 0) {
         return {
-          clicks: 0
+          clicks: 0,
         }
       }
       return {
@@ -74,26 +108,73 @@ export default class App extends Component {
     });
   }
   Memaw = (prevState) => {
-    this.setState((prevState) => {
-      return {Memaws:prevState.Memaws + 1}
-    })
-
+    if (this.state.clicks - this.state.meMawPrice >= 0) {
+      this.setState((prevState) => {
+        return {
+          meMaws: prevState.meMaws + 1,
+          clicks: prevState.clicks - prevState.meMawPrice,
+          meMawPrice: prevState.meMawPrice + 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
   }
   fireMemaw = () => {
-    if (this.state.Memaws > 0){
-    this.setState((prevState) => {
-      return {
-        Memaws:prevState.Memaws - 1
-      }
-    })
+    if (this.state.meMaws > 0 && this.state.meMawPrice >= 10) {
+      this.setState((prevState) => {
+        return {
+          meMaws: prevState.meMaws - 1,
+          meMawPrice: prevState.meMawPrice - 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
   }
+  buildFarm = () => {
+    if (this.state.clicks - this.state.farmPrice >= 0) {
+      this.setState((prevState) => {
+        return {
+          farms: prevState.farms + 1,
+          clicks: prevState.clicks - prevState.farmPrice,
+          farmPrice: prevState.farmPrice + 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
   }
-  upgradeClick = (prevState) => {
-    this.setState((prevState) =>{
-      return {
-        power: prevState.power + 1
-      }
-    })
+  burnFarm = () => {
+    if (this.state.farms > 0 && this.state.farmPrice >= 10) {
+      this.setState((prevState) => {
+        return {
+          farms: prevState.farms - 1,
+          farmPrice: prevState.farmPrice - 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+  }
+  buildFactory = () => {
+    if (this.state.clicks - this.state.factoryPrice >= 0) {
+      this.setState((prevState) => {
+        return {
+          factories: prevState.factories + 1,
+          clicks: prevState.clicks - prevState.factoryPrice,
+          factoryPrice: prevState.factoryPrice + 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+  }
+  burnFactory = () => {
+    if (this.state.factories > 0 && this.state.factoryPrice >= 10) {
+      this.setState((prevState) => {
+        return {
+          factories: prevState.factories - 1,
+          factoryPrice: prevState.factoryPrice - 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
   }
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
@@ -116,25 +197,57 @@ export default class App extends Component {
               {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
             </div>
             <div className="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-              <br/>
+              <br />
               <ul>
                 <li>
-                    <Memaw 
-                  Memaw = {this.Memaw}
+                  <UpgradeClick
+                    upgradeClick={this.upgradeClick}
+                    upgradeClickPrice={this.state.upgradeClickPrice}
                   />
                 </li>
-                <br/>
+                <br />
                 <li>
-                  <FireMemaw 
-                  fireMemaw = {this.fireMemaw}
+                  <Memaw
+                    Memaw={this.Memaw}
+                    meMawPrice={this.state.meMawPrice}
                   />
+                  
                 </li>
-                <br/>
+                <br />
                 <li>
-                  <UpgradeClick 
-                  upgradeClick={this.upgradeClick}
+                  <FireMemaw
+                    fireMemaw={this.fireMemaw}
                   />
                 </li>
+                <br />
+                <li>
+                  <Farm
+                    buildFarm={this.buildFarm}
+                    farmPrice={this.state.farmPrice}
+                  />
+
+                </li>
+                <br />
+                <li>
+                  <BurnFarm
+                    burnFarm={this.burnFarm}
+                  />
+                </li>
+                <br />
+                <li >
+                  <Factory
+                    buildFactory={this.buildFactory}
+                    factoryPrice={this.state.factoryPrice}
+                  />
+
+                </li>
+                <br />
+                <li>
+                  <BurnFactory
+                    burnFactory={this.burnFactory}
+                  />
+                </li>
+                <br />
               </ul>
             </div>
           </div>
