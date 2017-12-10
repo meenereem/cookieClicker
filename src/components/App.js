@@ -108,20 +108,10 @@ export default class App extends Component {
     });
   }
   Memaw = (prevState) => {
-    if (this.state.clicks - this.state.meMawPrice >= 0 && this.state.meMaws===0) {
+    if (this.state.clicks - this.state.meMawPrice >= 0) {
       this.setState((prevState) => {
         return {
           meMaws: prevState.meMaws + 1,
-          clicks: prevState.clicks - prevState.meMawPrice,
-          meMawPrice: Math.floor(prevState.meMawPrice * 1.15),
-          consecEat: prevState.consecEat = 1
-        }
-      })
-    }
-    if (this.state.clicks - this.state.meMawPrice >= 0 && this.state.meMaws!==0) {
-      this.setState((prevState) => {
-        return {
-          meMaws: Math.floor(prevState.meMaws + (prevState.meMaws * 1.15)),
           clicks: prevState.clicks - prevState.meMawPrice,
           meMawPrice: Math.floor(prevState.meMawPrice * 1.15),
           consecEat: prevState.consecEat = 1
@@ -134,7 +124,7 @@ export default class App extends Component {
       this.setState((prevState) => {
         return {
           meMaws: prevState.meMaws - 1,
-          meMawPrice: prevState.meMawPrice - 10,
+          meMawPrice: Math.ceil(prevState.meMawPrice * .87),
           consecEat: prevState.consecEat = 1
         }
       })
@@ -156,8 +146,8 @@ export default class App extends Component {
     if (this.state.farms > 0 && this.state.farmPrice >= 10) {
       this.setState((prevState) => {
         return {
-          farms: prevState.farms - 1,
-          farmPrice: prevState.farmPrice - 10,
+          farms: prevState.farms - 8,
+          farmPrice: Math.ceil(prevState.farmPrice * .8695),
           consecEat: prevState.consecEat = 1
         }
       })
@@ -179,8 +169,8 @@ export default class App extends Component {
     if (this.state.factories > 0 && this.state.factoryPrice >= 10) {
       this.setState((prevState) => {
         return {
-          factories: prevState.factories - 1,
-          factoryPrice: prevState.factoryPrice - 10,
+          factories: prevState.factories - 260,
+          factoryPrice: Math.ceil(prevState.factoryPrice * .869559),
           consecEat: prevState.consecEat = 1
         }
       })
