@@ -13,7 +13,6 @@ import Farm from './Farm'
 import BurnFarm from './BurnFarm'
 import Factory from './Factory'
 import BurnFactory from './BurnFactory'
-// import { Button } from 'react-bootstrap';
 
 
 export default class App extends Component {
@@ -203,15 +202,16 @@ export default class App extends Component {
                 <li>
                   <UpgradeClick
                     upgradeClick={this.upgradeClick}
+                    upgradeClickPrice={this.state.upgradeClickPrice}
                   />
-                  <p>Cost: {this.state.upgradeClickPrice}</p>
                 </li>
                 <br />
                 <li>
                   <Memaw
                     Memaw={this.Memaw}
+                    meMawPrice={this.state.meMawPrice}
                   />
-                  <p>Cost: {this.state.meMawPrice}</p>
+                  
                 </li>
                 <br />
                 <li>
@@ -223,8 +223,9 @@ export default class App extends Component {
                 <li>
                   <Farm
                     buildFarm={this.buildFarm}
+                    farmPrice={this.state.farmPrice}
                   />
-                  <p>Cost: {this.state.farmPrice}</p>
+
                 </li>
                 <br />
                 <li>
@@ -236,8 +237,9 @@ export default class App extends Component {
                 <li >
                   <Factory
                     buildFactory={this.buildFactory}
+                    factoryPrice={this.state.factoryPrice}
                   />
-                  <p>Cost: {this.state.factoryPrice}</p>
+
                 </li>
                 <br />
                 <li>
