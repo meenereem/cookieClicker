@@ -32,11 +32,11 @@ export default class App extends Component {
     consecEat: 1,
     Ate: false,
     meMaws: 0,
-    meMawPrice: 10,
+    meMawPrice: 100,
     farms: 0,
-    farmPrice: 10,
+    farmPrice: 1100,
     factories: 0,
-    factoryPrice: 10
+    factoryPrice: 130000
   };
   componentDidMount() {
     const clicks = parseInt(localStorage.getItem('clicks'), 10);
@@ -108,12 +108,22 @@ export default class App extends Component {
     });
   }
   Memaw = (prevState) => {
-    if (this.state.clicks - this.state.meMawPrice >= 0) {
+    if (this.state.clicks - this.state.meMawPrice >= 0 && this.state.meMaws===0) {
       this.setState((prevState) => {
         return {
           meMaws: prevState.meMaws + 1,
           clicks: prevState.clicks - prevState.meMawPrice,
-          meMawPrice: prevState.meMawPrice + 10,
+          meMawPrice: Math.floor(prevState.meMawPrice * 1.15),
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.meMawPrice >= 0 && this.state.meMaws!==0) {
+      this.setState((prevState) => {
+        return {
+          meMaws: Math.floor(prevState.meMaws + (prevState.meMaws * 1.15)),
+          clicks: prevState.clicks - prevState.meMawPrice,
+          meMawPrice: Math.floor(prevState.meMawPrice * 1.15),
           consecEat: prevState.consecEat = 1
         }
       })
@@ -134,9 +144,9 @@ export default class App extends Component {
     if (this.state.clicks - this.state.farmPrice >= 0) {
       this.setState((prevState) => {
         return {
-          farms: prevState.farms + 1,
+          farms: prevState.farms + 8,
           clicks: prevState.clicks - prevState.farmPrice,
-          farmPrice: prevState.farmPrice + 10,
+          farmPrice: Math.floor(prevState.farmPrice * 1.15),
           consecEat: prevState.consecEat = 1
         }
       })
@@ -157,9 +167,9 @@ export default class App extends Component {
     if (this.state.clicks - this.state.factoryPrice >= 0) {
       this.setState((prevState) => {
         return {
-          factories: prevState.factories + 1,
+          factories: prevState.factories + 260,
           clicks: prevState.clicks - prevState.factoryPrice,
-          factoryPrice: prevState.factoryPrice + 10,
+          factoryPrice: Math.floor(prevState.factoryPrice * 1.15),
           consecEat: prevState.consecEat = 1
         }
       })
