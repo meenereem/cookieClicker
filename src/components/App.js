@@ -39,14 +39,14 @@ export default class App extends Component {
     factoryPrice: 130000
   };
   componentDidMount() {
-    const clicks = parseInt(localStorage.getItem('clicks'), 10);
-    const meMaws = parseInt(localStorage.getItem('meMaws'), 10);
-    const power = parseInt(localStorage.getItem('power'), 10);
-    const farms = parseInt(localStorage.getItem('farms'), 10);
-    const factories = parseInt(localStorage.getItem('factories'), 10);
-    if (!isNaN(clicks) && !isNaN(meMaws) && !isNaN(power) && !isNaN(farms) && !isNaN(factories)) {
-      this.setState(() => ({ clicks, meMaws, power, farms, factories }));
-    }
+    const clicks = parseInt(localStorage.getItem('clicks'), 10) || 0;
+    const meMaws = parseInt(localStorage.getItem('meMaws'), 10) || 0;
+    const power = parseInt(localStorage.getItem('power'), 10) || 1;
+    const farms = parseInt(localStorage.getItem('farms'), 10) || 0;
+    const factories = parseInt(localStorage.getItem('factories'), 10) || 0;
+    this.setState(() => {
+      console.log({ clicks, meMaws, power, farms, factories }); return { clicks, meMaws, power, farms, factories };
+    });
 
   }
   componentDidUpdate(prevProps, prevState) {
