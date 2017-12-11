@@ -308,7 +308,7 @@ export default class App extends Component {
       this.setState((prevState) => {
         return {
           factoryPower: prevState.factoryPower - 260,
-          factoryPrice: Math.ceil(prevState.factoryPrice * .869559),
+          factoryPrice: Math.ceil(prevState.factoryPrice * .869565),
           consecEat: prevState.consecEat = 1
         }
       })
@@ -332,7 +332,7 @@ export default class App extends Component {
         <body>
           <div className="row">
             <div className="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-              {(this.state.clicks < 10) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
+              {(this.state.clicks < 100) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
             </div>
             <div className="col-md-6 col-lg-6 col-sm-6 col-xs-12">
               <br />
@@ -353,11 +353,11 @@ export default class App extends Component {
                 </li>
                 <br />
                 <li>
-                  <FireMemaw
-                    fireMemaw={this.fireMemaw}
-                  />
-                </li>
-                <br />
+                <FireMemaw
+                fireMemaw={this.fireMemaw}
+              />
+              </li>
+              <br />
                 <li>
                   <Farm
                     buildFarm={this.buildFarm}
