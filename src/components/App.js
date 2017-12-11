@@ -283,6 +283,7 @@ export default class App extends Component {
     if (this.state.farmPower > 0 && this.state.farmPrice >= 10) {
       this.setState((prevState) => {
         return {
+          farms: prevState.farms - 1,
           farmPower: prevState.farmPower - 8,
           farmPrice: Math.ceil(prevState.farmPrice * .8695),
           consecEat: prevState.consecEat = 1
@@ -307,6 +308,7 @@ export default class App extends Component {
     if (this.state.factoryPower > 0 && this.state.factoryPrice >= 10) {
       this.setState((prevState) => {
         return {
+          factories: prevState.factories - 1,
           factoryPower: prevState.factoryPower - 260,
           factoryPrice: Math.ceil(prevState.factoryPrice * .869565),
           consecEat: prevState.consecEat = 1
