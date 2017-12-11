@@ -1,5 +1,6 @@
 To update on Server (only use force here not for whole app)
 Visual Studio
+  cd build
   yarn run build
   git add .
   git commit -m "m"
@@ -7,7 +8,8 @@ Visual Studio
 Terminal
   ssh root@meenereem.com
   enter password
-  cd var/www/html/CookieClicker
+  cd /var/www/html/CookieClicker
+  git reset --hard origin/master
   git pull --all
 
 

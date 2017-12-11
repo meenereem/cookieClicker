@@ -19,7 +19,7 @@ export default class App extends Component {
   timer = setInterval(() => {
     this.setState((prevState) => {
       return {
-        clicks: prevState.clicks + prevState.meMaws + prevState.farms + prevState.factories,
+        clicks: prevState.clicks + prevState.meMaws + prevState.farmPower + prevState.factoryPower,
         Ate: false
       }
     });
@@ -27,25 +27,35 @@ export default class App extends Component {
   }, 1000)
   state = {
     clicks: 1,
-    upgradeClickPrice: 10,
+    upgradeClickPrice: 100,
+    upgrades: 0,
     power: 1,
     consecEat: 1,
     Ate: false,
     meMaws: 0,
     meMawPrice: 100,
-    farms: 0,
+    farmPower: 0,
     farmPrice: 1100,
-    factories: 0,
-    factoryPrice: 130000
+    farms: 0,
+    factoryPower: 0,
+    factoryPrice: 130000,
+    factories: 0
   };
   componentDidMount() {
+    const upgrades = parseInt(localStorage.getItem('upgrades'), 10) || 0;
+    const upgradeClickPrice = parseInt(localStorage.getItem('upgradeClickPrice'), 10) || 100;
     const clicks = parseInt(localStorage.getItem('clicks'), 10) || 0;
-    const meMaws = parseInt(localStorage.getItem('meMaws'), 10) || 0;
     const power = parseInt(localStorage.getItem('power'), 10) || 1;
+    const meMaws = parseInt(localStorage.getItem('meMaws'), 10) || 0;
+    const meMawPrice = parseInt(localStorage.getItem('meMawPrice'), 10) || 100;
+    const farmPower = parseInt(localStorage.getItem('farmPower'), 10) || 0;
+    const farmPrice = parseInt(localStorage.getItem('farmPrice'), 10) || 1100;
     const farms = parseInt(localStorage.getItem('farms'), 10) || 0;
+    const factoryPower = parseInt(localStorage.getItem('factoryPower'), 10) || 0;
+    const factoryPrice = parseInt(localStorage.getItem('factoryPrice'), 10) || 130000;
     const factories = parseInt(localStorage.getItem('factories'), 10) || 0;
     this.setState(() => {
-      return { clicks, meMaws, power, farms, factories };
+      return { upgrades, upgradeClickPrice, clicks, power, meMaws, meMawPrice, farmPower, farmPrice, farms, factoryPower, factoryPrice, factories };
     });
 
   }
@@ -54,13 +64,41 @@ export default class App extends Component {
       const factories = this.state.factories;
       localStorage.setItem('factories', factories)
     }
+    if (prevState.farms !== this.state.farms) {
+      const farms = this.state.farms;
+      localStorage.setItem('farms', farms)
+    }
+    if (prevState.upgradeClickPrice !== this.state.upgradeClickPrice) {
+      const upgradeClickPrice = this.state.upgradeClickPrice;
+      localStorage.setItem('upgradeClickPrice', upgradeClickPrice)
+    }
+    if (prevState.upgrades !== this.state.upgrades) {
+      const upgrades = this.state.upgrades;
+      localStorage.setItem('upgrades', upgrades)
+    }
+    if (prevState.factoryPrice !== this.state.factoryPrice) {
+      const factoryPrice = this.state.factoryPrice;
+      localStorage.setItem('factoryPrice', factoryPrice)
+    }
+    if (prevState.farmPrice !== this.state.farmPrice) {
+      const farmPrice = this.state.farmPrice;
+      localStorage.setItem('farmPrice', farmPrice)
+    }
+    if (prevState.meMawPrice !== this.state.meMawPrice) {
+      const meMawPrice = this.state.meMawPrice;
+      localStorage.setItem('meMawPrice', meMawPrice)
+    }
+    if (prevState.factoryPower !== this.state.factoryPower) {
+      const factoryPower = this.state.factoryPower;
+      localStorage.setItem('factoryPower', factoryPower)
+    }
     if (prevState.meMaws !== this.state.meMaws) {
       const meMaws = this.state.meMaws;
       localStorage.setItem('meMaws', meMaws)
     }
-    if (prevState.farms !== this.state.farms) {
-      const farms = this.state.farms;
-      localStorage.setItem('farms', farms)
+    if (prevState.farmPower !== this.state.farmPower) {
+      const farmPower = this.state.farmPower;
+      localStorage.setItem('farmPower', farmPower)
     }
     if (prevState.clicks !== this.state.clicks) {
       const clicks = this.state.clicks;
@@ -73,15 +111,113 @@ export default class App extends Component {
   }
   upgradeClick = (prevState) => {
     if (this.state.clicks - this.state.upgradeClickPrice >= 0) {
+    this.setState((prevState) => {
+      return {
+        upgrades: prevState.upgrades + 1
+      }
+    })
+  }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades < 3) {
       this.setState((prevState) => {
         return {
-          power: prevState.power + 1,
+          power: prevState.power * 2,
           clicks: prevState.clicks - prevState.upgradeClickPrice,
-          upgradeClickPrice: prevState.upgradeClickPrice + 10,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
           consecEat: prevState.consecEat = 1
         }
       })
     }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 3) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + .1 * prevState.meMaws + .1 * prevState.farms + .1 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 4) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + .5 * prevState.meMaws + .5 * prevState.farms + .5 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 5) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + 5 * prevState.meMaws + 5 * prevState.farms + 5 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 6) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + 50 * prevState.meMaws + 50 * prevState.farms + 50 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 7) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + 500 * prevState.meMaws + 500 * prevState.farms + 500 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 8) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + 5000 * prevState.meMaws + 5000 * prevState.farms + 5000 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 9) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + 50000 * prevState.meMaws + 50000 * prevState.farms + 50000 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 10) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + 500000 * prevState.meMaws + 500000 * prevState.farms + 500000 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+    if (this.state.clicks - this.state.upgradeClickPrice >= 0 && this.state.upgrades === 11) {
+      this.setState((prevState) => {
+        return {
+          power: Math.ceil(prevState.power + 5000000 * prevState.meMaws + 5000000 * prevState.farms + 5000000 * prevState.factories),
+          clicks: prevState.clicks - prevState.upgradeClickPrice,
+          upgradeClickPrice: prevState.upgradeClickPrice * 10,
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
+
   }
   makeCookies = (prevstate) => {
     this.setState((prevState) => {
@@ -134,7 +270,8 @@ export default class App extends Component {
     if (this.state.clicks - this.state.farmPrice >= 0) {
       this.setState((prevState) => {
         return {
-          farms: prevState.farms + 8,
+          farms: prevState.farms + 1,
+          farmPower: prevState.farmPower + 8,
           clicks: prevState.clicks - prevState.farmPrice,
           farmPrice: Math.floor(prevState.farmPrice * 1.15),
           consecEat: prevState.consecEat = 1
@@ -143,10 +280,10 @@ export default class App extends Component {
     }
   }
   burnFarm = () => {
-    if (this.state.farms > 0 && this.state.farmPrice >= 10) {
+    if (this.state.farmPower > 0 && this.state.farmPrice >= 10) {
       this.setState((prevState) => {
         return {
-          farms: prevState.farms - 8,
+          farmPower: prevState.farmPower - 8,
           farmPrice: Math.ceil(prevState.farmPrice * .8695),
           consecEat: prevState.consecEat = 1
         }
@@ -157,7 +294,8 @@ export default class App extends Component {
     if (this.state.clicks - this.state.factoryPrice >= 0) {
       this.setState((prevState) => {
         return {
-          factories: prevState.factories + 260,
+          factories: prevState.factories + 1,
+          factoryPower: prevState.factoryPower + 260,
           clicks: prevState.clicks - prevState.factoryPrice,
           factoryPrice: Math.floor(prevState.factoryPrice * 1.15),
           consecEat: prevState.consecEat = 1
@@ -166,10 +304,10 @@ export default class App extends Component {
     }
   }
   burnFactory = () => {
-    if (this.state.factories > 0 && this.state.factoryPrice >= 10) {
+    if (this.state.factoryPower > 0 && this.state.factoryPrice >= 10) {
       this.setState((prevState) => {
         return {
-          factories: prevState.factories - 260,
+          factoryPower: prevState.factoryPower - 260,
           factoryPrice: Math.ceil(prevState.factoryPrice * .869559),
           consecEat: prevState.consecEat = 1
         }
