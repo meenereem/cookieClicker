@@ -1,1 +1,2 @@
-@import './App.css';
+@import './base/_base.css';
+@import './components/App.css';

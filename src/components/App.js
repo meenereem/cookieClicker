@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './../styles/App.css';
+import './../styles/components/App.css';
+import'./../styles/components/buttons.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import CookieButton from './CookieButton';
 import Header from './Header';
@@ -609,7 +610,7 @@ export default class App extends Component {
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
     return (
-      <div className="App">
+<div className="App">
         <header className="App-header">
           <Header subTitle={subTitle} />
           <CookieButton
@@ -621,90 +622,54 @@ export default class App extends Component {
           <h1>Count: {(this.state.clicks !== 0) ? this.state.clicks : "You Ate All The Cookies!"}</h1>
           <h2>{(this.state.Ate === true && this.state.clicks !== 0) && <p>You Ate {this.state.consecEat} Cookies!</p>} </h2>
         </header>
-        <body>
-          <div className="row">
-            <div className="col-md-6 col-lg-6 col-sm-6 col-xs-12">
-              {(this.state.clicks < 50) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
-            </div>
-            <div className="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div>
+          <div>
+            {(this.state.clicks < 50) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
+          </div>
+          <div align = "right">
+              <div className = "">
+                <UpgradeClick
+                  upgradeClick={this.upgradeClick}
+                  upgradeClickPrice={this.state.upgradeClickPrice}
+                />
+              </div>
               <br />
-              <ul>
-                <li>
-                  <UpgradeClick
-                    upgradeClick={this.upgradeClick}
-                    upgradeClickPrice={this.state.upgradeClickPrice}
-                  />
-                </li>
-                <br />
-                <li>
-                  <Memaw
-                    Memaw={this.Memaw}
-                    meMawPrice={this.state.meMawPrice}
-                  />
-                </li>
-                <br />
-                <li>
-                  <FireMemaw
-                    fireMemaw={this.fireMemaw}
-                  />
-                </li>
-                <br />
-                <li>
-                  <Farm
-                    buildFarm={this.buildFarm}
-                    farmPrice={this.state.farmPrice}
-                  />
-                </li>
-                <br />
-                <li>
-                  <BurnFarm
-                    burnFarm={this.burnFarm}
-                  />
-                </li>
-                <br />
-                <li >
-                  <Mine
-                    buildMine={this.buildMine}
-                    minePrice={this.state.minePrice}
-                  />
-                </li>
-                <br />
-                <li>
-                  <DemolishMine
-                    demolishMine={this.demolishMine}
-                  />
-                </li>
-                <br />
-                <li >
-                  <Factory
-                    buildFactory={this.buildFactory}
-                    factoryPrice={this.state.factoryPrice}
-                  />
-                </li>
-                <br />
-                <li>
-                  <BurnFactory
-                    burnFactory={this.burnFactory}
-                  />
-                </li>
-                <br />
-                <li >
+              <div >
+                <Memaw
+                  Memaw={this.Memaw}
+                  meMawPrice={this.state.meMawPrice}
+                />
+              </div>
+              <br />
+              <div>
+                <Farm
+                  buildFarm={this.buildFarm}
+                  farmPrice={this.state.farmPrice}
+                />
+              </div>
+              <br />
+              <div>
+                <Mine
+                  buildMine={this.buildMine}
+                  minePrice={this.state.minePrice}
+                />
+              </div>
+              <br />
+              <div>
+                <Factory
+                  buildFactory={this.buildFactory}
+                  factoryPrice={this.state.factoryPrice}
+                />
+              </div>
+              <br />
+              <div>
                 <Bank
                   buildBank={this.buildBank}
                   bankPrice={this.state.bankPrice}
                 />
-              </li>
-              <br />
-              <li>
-                <DestroyBank
-                destroyBank={this.destroyBank}
-                />
-              </li>
-              <br />
-              </ul>
-            </div>
+              </div>
           </div>
-        </body>
+        </div>
       </div>
     );
   }

@@ -1,0 +1,32 @@
+.widget {
+    background: #0d7794;
+    margin-bottom: 2rem;
+}
+
+//widget header
+.widget-header {
+    background: #333745;
+    color: #a5afd7;
+    display: flex;
+    justify-content: space-between;
+    padding: 1.6rem;
+}
+
+.widget__message {
+    margin: 10;
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid lighten(#464b5e, 10%);
+}
+
+.remove_building {
+    text-align: right;
+}
+
+.button {
+        content:'';
+        display:block;
+        position:absolute;
+right:100;
+
+}
