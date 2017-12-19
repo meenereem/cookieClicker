@@ -6,9 +6,7 @@ const Mine = (props) => (
         <p>
             <a className="btn btn-primary" href="#" onClick={props.buildMine}>Build Mine</a>
             Cost: {props.minePrice}
-            <DemolishMine
-                demolishMine={this.demolishMine}
-            />
+
         </p>
     </div>
 

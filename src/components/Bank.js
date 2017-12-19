@@ -6,9 +6,6 @@ const Bank = (props) => (
         <p>
             <a className="btn btn-primary" href="#" onClick={props.buildBank}>Build Bank</a>
             Cost: {props.bankPrice}
-            <DestroyBank
-                destroyBank={this.destroyBank}
-            />
         </p>
     </div>
 

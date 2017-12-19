@@ -8,9 +8,7 @@ const Memaw = (props) => (
             <a className="btn btn-primary" href="#" onClick={props.Memaw}>Hire Memaw</a>
             Cost: {props.meMawPrice}
             <div>
-            <FireMemaw 
-                fireMemaw={this.fireMemaw}
-            />
+
             </div>
             </p>
     </div>

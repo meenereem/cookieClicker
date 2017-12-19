@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './../styles/components/App.css';
-import'./../styles/components/buttons.css';
+import './../styles/components/buttons.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import CookieButton from './CookieButton';
 import Header from './Header';
@@ -610,7 +610,7 @@ export default class App extends Component {
   render() {
     const subTitle = 'Welcome to Cookie Clicker';
     return (
-<div className="App">
+      <div className="App">
         <header className="App-header">
           <Header subTitle={subTitle} />
           <CookieButton
@@ -626,48 +626,63 @@ export default class App extends Component {
           <div>
             {(this.state.clicks < 50) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
           </div>
-          <div align = "right">
-              <div className = "">
-                <UpgradeClick
-                  upgradeClick={this.upgradeClick}
-                  upgradeClickPrice={this.state.upgradeClickPrice}
-                />
-              </div>
-              <br />
-              <div >
-                <Memaw
-                  Memaw={this.Memaw}
-                  meMawPrice={this.state.meMawPrice}
-                />
-              </div>
-              <br />
-              <div>
-                <Farm
-                  buildFarm={this.buildFarm}
-                  farmPrice={this.state.farmPrice}
-                />
-              </div>
-              <br />
-              <div>
-                <Mine
-                  buildMine={this.buildMine}
-                  minePrice={this.state.minePrice}
-                />
-              </div>
-              <br />
-              <div>
-                <Factory
-                  buildFactory={this.buildFactory}
-                  factoryPrice={this.state.factoryPrice}
-                />
-              </div>
-              <br />
-              <div>
-                <Bank
-                  buildBank={this.buildBank}
-                  bankPrice={this.state.bankPrice}
-                />
-              </div>
+          <div align="right">
+            <div className="">
+              <UpgradeClick
+                upgradeClick={this.upgradeClick}
+                upgradeClickPrice={this.state.upgradeClickPrice}
+              />
+            </div>
+            <br />
+            <div >
+              <Memaw
+                Memaw={this.Memaw}
+                meMawPrice={this.state.meMawPrice}
+              />
+              <FireMemaw
+                fireMemaw={this.fireMemaw}
+              />
+            </div>
+            <br />
+            <div>
+              <Farm
+                buildFarm={this.buildFarm}
+                farmPrice={this.state.farmPrice}
+              />
+              <BurnFarm
+                burnFarm={this.burnFarm}
+              />
+            </div>
+            <br />
+            <div>
+              <Mine
+                buildMine={this.buildMine}
+                minePrice={this.state.minePrice}
+              />
+              <DemolishMine
+                demolishMine={this.demolishMine}
+              />
+            </div>
+            <br />
+            <div>
+              <Factory
+                buildFactory={this.buildFactory}
+                factoryPrice={this.state.factoryPrice}
+              />
+              <BurnFactory
+                burnFactory={this.burnFactory}
+              />
+            </div>
+            <br />
+            <div>
+              <Bank
+                buildBank={this.buildBank}
+                bankPrice={this.state.bankPrice}
+              />
+              <DestroyBank
+                destroyBank={this.destroyBank}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -6,9 +6,7 @@ const Farm = (props) => (
         <p>
             <button className="btn btn-primary" href="#" onClick={props.buildFarm}> Build Farm</button>
             Cost: {props.farmPrice}
-            <BurnFarm
-                burnFarm={this.burnFarm}
-            />
+
         </p>
     </div>
 )
