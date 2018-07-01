@@ -1,5 +1,5 @@
 import React from 'react'
-import DestroyBank from './DestroyBank'
+import DemolishBank from './DemolishBank'
 
 const Bank = (props) => (
     <div>

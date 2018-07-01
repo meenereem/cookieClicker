@@ -17,18 +17,22 @@ import BurnFactory from './BurnFactory'
 import Mine from './Mine'
 import DemolishMine from './DemolishMine'
 import Bank from './Bank'
-import DestroyBank from './DestroyBank'
+import DemolishBank from './DemolishBank'
+import Cursor from './Cursor'
 
 export default class App extends Component {
   timer = setInterval(() => {
     this.setState((prevState) => {
       return {
-        clicks: prevState.clicks + prevState.meMaws + prevState.farmPower + prevState.factoryPower + prevState.minePower + prevState.bankPower,
+        clicks: prevState.clicks + prevState.meMaws + prevState.farmPower + prevState.factoryPower + prevState.minePower + prevState.bankPower + prevState.cursorPower,
         Ate: false
       }
     });
   }, 1000)
   state = {
+    cursors: 0,
+    cursorPrice: 15,
+    cursorPower: 0,
     clicks: 1,
     upgradeClickPrice: 100,
     upgrades: 0,
@@ -51,6 +55,9 @@ export default class App extends Component {
     bankPower: 0
   };
   componentDidMount() {
+    const cursors = parseInt(localStorage.getItem('cursors'), 10) || 0;
+    const cursorPrice = parseInt(localStorage.getItem('cursorPrice'), 10) || 15;
+    const cursorPower = parseInt(localStorage.getItem('cursorPower'), 10) || 0;
     const banks = parseInt(localStorage.getItem('banks'), 10) || 0;
     const bankPrice = parseInt(localStorage.getItem('bankPrice'), 10) || 1400000;
     const bankPower = parseInt(localStorage.getItem('bankPower'), 10) || 0;
@@ -70,11 +77,23 @@ export default class App extends Component {
     const factoryPrice = parseInt(localStorage.getItem('factoryPrice'), 10) || 130000;
     const factories = parseInt(localStorage.getItem('factories'), 10) || 0;
     this.setState(() => {
-      return { banks, bankPrice, bankPower, mines, minePower, minePrice, clicks, upgradeClickPrice, upgrades, power, meMaws, meMawPrice, farmPower, farmPrice, farms, factoryPower, factoryPrice, factories };
+      return { cursors, cursorPrice, cursorPower, banks, bankPrice, bankPower, mines, minePower, minePrice, clicks, upgradeClickPrice, upgrades, power, meMaws, meMawPrice, farmPower, farmPrice, farms, factoryPower, factoryPrice, factories };
     });
 
   }
   componentDidUpdate(prevProps, prevState) {
+    if (prevState.cursors !== this.state.cursors) {
+      const cursors = this.state.cursors;
+      localStorage.setItem('cursors', cursors)
+    }
+    if (prevState.cursorPrice !== this.state.cursorPrice) {
+      const cursorPrice = this.state.cursorPrice;
+      localStorage.setItem('cursorPrice', cursorPrice)
+    }
+    if (prevState.cursorPower !== this.state.bancursorPowerks) {
+      const cursorPower = this.state.cursorPower;
+      localStorage.setItem('banks', cursorPower)
+    }
     if (prevState.banks !== this.state.banks) {
       const banks = this.state.banks;
       localStorage.setItem('banks', banks)
@@ -154,31 +173,31 @@ export default class App extends Component {
         this.setState((prevState) => ({ power: prevState.power * 2 }));
       }
       if (this.state.upgrades === 3) {
-        this.setState((prevState) => ({ power: prevState.power + 3 * prevState.meMaws + 3 * prevState.farms + 3 * prevState.factories }));
+        this.setState((prevState) => ({ power: prevState.power + 3 * prevState.meMaws + 3 * prevState.farms + 3 * prevState.factories + 3 * prevState.cursors }));
       }
       if (this.state.upgrades === 4) {
-        this.setState((prevState) => ({ power: prevState.power + 4 * prevState.meMaws + 4 * prevState.farms + 4 * prevState.factories }));
+        this.setState((prevState) => ({ power: prevState.power + 4 * prevState.meMaws + 4 * prevState.farms + 4 * prevState.factories + 4 * prevState.cursors }));
       }
       if (this.state.upgrades === 5) {
-        this.setState((prevState) => ({ power: prevState.power + 5 * prevState.meMaws + 5 * prevState.farms + 5 * prevState.factories }));
+        this.setState((prevState) => ({ power: prevState.power + 5 * prevState.meMaws + 5 * prevState.farms + 5 * prevState.factories + 5 * prevState.cursors }));
       }
       if (this.state.upgrades === 6) {
-        this.setState((prevState) => ({ power: prevState.power + 50 * prevState.meMaws + 50 * prevState.farms + 50 * prevState.factories }))
+        this.setState((prevState) => ({ power: prevState.power + 50 * prevState.meMaws + 50 * prevState.farms + 50 * prevState.factories + 50 * prevState.cursors }))
       }
       if (this.state.upgrades === 7) {
-        this.setState((prevState) => ({ power: prevState.power + 500 * prevState.meMaws + 500 * prevState.farms + 500 * prevState.factories }))
+        this.setState((prevState) => ({ power: prevState.power + 500 * prevState.meMaws + 500 * prevState.farms + 500 * prevState.factories + 500 * prevState.cursors }))
       }
       if (this.state.upgrades === 8) {
-        this.setState((prevState) => ({ power: prevState.power + 5000 * prevState.meMaws + 5000 * prevState.farms + 5000 * prevState.factories }))
+        this.setState((prevState) => ({ power: prevState.power + 5000 * prevState.meMaws + 5000 * prevState.farms + 5000 * prevState.factories + 5000 * prevState.cursors }))
       }
       if (this.state.upgrades === 9) {
-        this.setState((prevState) => ({ power: prevState.power + 50000 * prevState.meMaws + 50000 * prevState.farms + 50000 * prevState.factories }))
+        this.setState((prevState) => ({ power: prevState.power + 50000 * prevState.meMaws + 50000 * prevState.farms + 50000 * prevState.factories + 50000 * prevState.cursors }))
       }
       if (this.state.upgrades === 10) {
-        this.setState((prevState) => ({ power: prevState.power + 500000 * prevState.meMaws + 500000 * prevState.farms + 500000 * prevState.factories }))
+        this.setState((prevState) => ({ power: prevState.power + 500000 * prevState.meMaws + 500000 * prevState.farms + 500000 * prevState.factories + 500000 * prevState.cursors }))
       }
       if (this.state.upgrades === 11) {
-        this.setState((prevState) => ({ power: prevState.power + 5000000 * prevState.meMaws + 5000000 * prevState.farms + 5000000 * prevState.factories }))
+        this.setState((prevState) => ({ power: prevState.power + 5000000 * prevState.meMaws + 5000000 * prevState.farms + 5000000 * prevState.factories + 5000000 * prevState.cursors }))
       }
       this.setState((prevState) => {
         return {
@@ -213,6 +232,46 @@ export default class App extends Component {
         Ate: true
       }
     });
+  }
+  cursor = (prevState) => {
+    if (this.state.clicks - this.state.cursorPrice >= 0) {
+      if (this.state.upgrades === 4) {
+        this.setState((prevState) => ({ power: prevState.power + 3 }))
+      }
+      if (this.state.upgrades === 5) {
+        this.setState((prevState) => ({ power: prevState.power + 7 }))
+      }
+      if (this.state.upgrades === 6) {
+        this.setState((prevState) => ({ power: prevState.power + 12 }))
+      }
+      if (this.state.upgrades === 7) {
+        this.setState((prevState) => ({ power: prevState.power + 62 }))
+      }
+      if (this.state.upgrades === 8) {
+        this.setState((prevState) => ({ power: prevState.power + 562 }))
+      }
+      if (this.state.upgrades === 9) {
+        this.setState((prevState) => ({ power: prevState.power + 5562 }))
+      }
+      if (this.state.upgrades === 10) {
+        this.setState((prevState) => ({ power: prevState.power + 55562 }))
+      }
+      if (this.state.upgrades === 11) {
+        this.setState((prevState) => ({ power: prevState.power + 555562 }))
+      }
+      if (this.state.upgrades === 12) {
+        this.setState((prevState) => ({ power: prevState.power + 5555562 }))
+      }
+      this.setState((prevState) => {
+        return {
+          cursors: prevState.cursors + 1,
+          clicks: prevState.clicks - prevState.cursorPrice,
+          cursorPower: prevState.cursorPower + .1,
+          cursorPrice: Math.floor(prevState.cursorPrice * 1.15),
+          consecEat: prevState.consecEat = 1
+        }
+      })
+    }
   }
   Memaw = (prevState) => {
     if (this.state.clicks - this.state.meMawPrice >= 0) {
@@ -568,7 +627,7 @@ export default class App extends Component {
       })
     }
   }
-  destroyBank = () => {
+  demolishBank = () => {
     if (this.state.banks > 0) {
       if (this.state.upgrades === 4) {
         this.setState((prevState) => ({ power: prevState.power - 3 }))
@@ -622,67 +681,59 @@ export default class App extends Component {
           <h1>Count: {(this.state.clicks !== 0) ? this.state.clicks : "You Ate All The Cookies!"}</h1>
           <h2>{(this.state.Ate === true && this.state.clicks !== 0) && <p>You Ate {this.state.consecEat} Cookies!</p>} </h2>
         </header>
-        <div>
-          <div>
-            {(this.state.clicks < 50) ? <img align="left" src={mysterious_figure} /> : <img align="left" src={merchant} />}
+        <div style={{ display: 'flex' }}>
+          <UpgradeClick
+            upgradeClick={this.upgradeClick}
+            upgradeClickPrice={this.state.upgradeClickPrice}
+          />
+          <Cursor
+          cursor={this.cursor}
+          cursorPrice={this.state.cursorPrice}
+          />
+          <div >
+            <Memaw
+              Memaw={this.Memaw}
+              meMawPrice={this.state.meMawPrice}
+            />
+            <FireMemaw
+              fireMemaw={this.fireMemaw}
+            />
           </div>
-          <div align="right">
-            <div className="">
-              <UpgradeClick
-                upgradeClick={this.upgradeClick}
-                upgradeClickPrice={this.state.upgradeClickPrice}
-              />
-            </div>
-            <br />
-            <div >
-              <Memaw
-                Memaw={this.Memaw}
-                meMawPrice={this.state.meMawPrice}
-              />
-              <FireMemaw
-                fireMemaw={this.fireMemaw}
-              />
-            </div>
-            <br />
-            <div>
-              <Farm
-                buildFarm={this.buildFarm}
-                farmPrice={this.state.farmPrice}
-              />
-              <BurnFarm
-                burnFarm={this.burnFarm}
-              />
-            </div>
-            <br />
-            <div>
-              <Mine
-                buildMine={this.buildMine}
-                minePrice={this.state.minePrice}
-              />
-              <DemolishMine
-                demolishMine={this.demolishMine}
-              />
-            </div>
-            <br />
-            <div>
-              <Factory
-                buildFactory={this.buildFactory}
-                factoryPrice={this.state.factoryPrice}
-              />
-              <BurnFactory
-                burnFactory={this.burnFactory}
-              />
-            </div>
-            <br />
-            <div>
-              <Bank
-                buildBank={this.buildBank}
-                bankPrice={this.state.bankPrice}
-              />
-              <DestroyBank
-                destroyBank={this.destroyBank}
-              />
-            </div>
+          <div>
+            <Farm
+              buildFarm={this.buildFarm}
+              farmPrice={this.state.farmPrice}
+            />
+            <BurnFarm
+              burnFarm={this.burnFarm}
+            />
+          </div>
+          <div>
+            <Mine
+              buildMine={this.buildMine}
+              minePrice={this.state.minePrice}
+            />
+            <DemolishMine
+              demolishMine={this.demolishMine}
+            />
+          </div>
+          <div>
+            <Factory
+              buildFactory={this.buildFactory}
+              factoryPrice={this.state.factoryPrice}
+            />
+            <BurnFactory
+              burnFactory={this.burnFactory}
+            />
+          </div>
+          <div>
+            <Bank
+              buildBank={this.buildBank}
+              bankPrice={this.state.bankPrice}
+            />
+            <DemolishBank
+              demolishBank={this.demolishBank}
+            />
           </div>
         </div>
       </div>
